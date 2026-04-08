@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 node_modules/
 .env
 .DS_Store
-=======
-node_modules/
-.env
-.DS_Store
->>>>>>> 3ffb427b9416e1a1b37086d2cb91873a0eb77af7
 client/build/
