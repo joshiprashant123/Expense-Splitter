@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Equitable - Roommate Finance</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e6e8ea",
+                        "primary": "#003d9b",
+                        "outline-variant": "#c3c6d6",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "primary-container": "#0052cc",
+                        "tertiary": "#7b2600",
+                        "primary-fixed": "#dae2ff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#001848",
+                        "on-secondary-container": "#57657a",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#380d00",
+                        "tertiary-container": "#a33500",
+                        "on-surface-variant": "#434654",
+                        "tertiary-fixed": "#ffdbcf",
+                        "secondary-container": "#d5e3fc",
+                        "inverse-surface": "#2d3133",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-background": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#0c56d0",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "surface": "#f7f9fb",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#ffc6b2",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "surface-container": "#eceef0",
+                        "on-primary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "secondary": "#515f74",
+                        "on-tertiary-fixed-variant": "#812800",
+                        "on-primary-container": "#c4d2ff",
+                        "outline": "#737685",
+                        "surface-dim": "#d8dadc",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-primary": "#b2c5ff",
+                        "on-surface": "#191c1e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e0e3e5; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c3c6d6; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased overflow-x-hidden">
+
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 bottom-0 w-[280px] z-50 bg-slate-50 dark:bg-slate-950 flex flex-col h-full py-6 px-4 border-r border-slate-100 dark:border-slate-800">
+    <div class="flex items-center gap-3 px-2 mb-10">
+        <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+            <span class="material-symbols-outlined">account_balance_wallet</span>
+        </div>
+        <div>
+            <h1 class="text-2xl font-black text-blue-800 dark:text-blue-300 leading-tight">Equitable</h1>
+            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Roommate Finance</p>
+        </div>
+    </div>
+    <nav class="flex-1 space-y-1" id="main-nav">
+        <a href="#dashboard" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-blue-700 font-bold bg-blue-50/50" data-view="dashboard">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-headline font-semibold">Dashboard</span>
+        </a>
+        <a href="#history" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-200/50 hover:text-blue-600" data-view="history">
+            <span class="material-symbols-outlined">history</span>
+            <span class="font-headline font-semibold">History</span>
+        </a>
+        <a href="#add-expense" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-200/50 hover:text-blue-600" data-view="add-expense">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span class="font-headline font-semibold">Add Expense</span>
+        </a>
+        <a href="#members" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-200/50 hover:text-blue-600" data-view="members">
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-headline font-semibold">Members</span>
+        </a>
+    </nav>
+    <div class="mt-auto pt-6 space-y-1 border-t border-slate-200 dark:border-slate-800">
+        <button class="w-full mb-6 py-3 bg-primary text-white font-headline font-bold rounded-full shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity active:scale-95" id="new-group-btn">
+            <span class="material-symbols-outlined text-sm">add</span>
+            New Group
+        </button>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-200/50" href="#">
+            <span class="material-symbols-outlined">help</span>
+            <span class="font-headline font-semibold">Support</span>
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-slate-600 hover:bg-slate-200/50" href="#">
+            <span class="material-symbols-outlined">logout</span>
+            <span class="font-headline font-semibold">Sign Out</span>
+        </a>
+    </div>
+</aside>
+
+<!-- Top Bar -->
+<header class="fixed top-0 right-0 left-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center h-16 px-8 ml-[280px] shadow-sm border-b border-slate-100 dark:border-slate-800">
+    <div class="flex items-center gap-4 flex-1">
+        <div class="relative w-full max-w-md group">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+            <input class="w-full bg-slate-50 border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/10 transition-all placeholder:text-slate-400" id="global-search" placeholder="Search expenses..." type="text"/>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors relative">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+        </button>
+        <button class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors">
+            <span class="material-symbols-outlined">settings</span>
+        </button>
+        <div class="h-8 w-px bg-slate-200 mx-2"></div>
+        <div class="flex items-center gap-3 pl-2">
+            <div class="text-right hidden sm:block">
+                <p class="text-sm font-bold font-headline text-blue-700" id="current-user-name">Alex Rivers</p>
+                <p class="text-[10px] font-medium text-slate-500 uppercase tracking-tighter">Premium Member</p>
+            </div>
+            <img alt="Profile" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgRf5CTmvn8iju8OlYvsLyVwvhqDlh3QhfIfR0g_tZie4cwMwhZtdo4--E5aPi2mILwEbgjr8jRa34Mf5dsPiudd2UZJMGN9Rw2sTFRele4JXstIx_bKajJc_YAJ-krVdOWmm313tS8vJd7zpwbNS4XYLOvDiSSqA4oR7yUiB4NPDDnG9iknNKmSbV0UM6xqiVm_z00anwFn3LkJwighME1WxnWsuzCaIAgwJxMJtXwAuQJU_HAzi3zTxkiGe_v0bd3hxUfssga7g"/>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="ml-[280px] pt-16 min-h-screen">
+    
+    <!-- Dashboard View -->
+    <section class="view-section p-8" id="view-dashboard">
+        <div class="max-w-6xl mx-auto">
+            <header class="mb-10">
+                <h2 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface mb-2">Overview</h2>
+                <p class="text-on-surface-variant font-medium">Welcome back, <span id="welcome-name">Alex</span>! Here's your household balance.</p>
+            </header>
+
+            <div class="grid grid-cols-12 gap-8 mb-8">
+                <div class="col-span-12 lg:col-span-8 bg-gradient-to-br from-primary to-primary-container rounded-[2rem] p-10 text-white relative overflow-hidden shadow-2xl">
+                    <div class="relative z-10">
+                        <p class="text-blue-100 font-medium uppercase text-xs tracking-widest mb-2 opacity-80">Total Net Balance</p>
+                        <h3 class="text-6xl font-black tracking-tight mb-6" id="total-net-balance">$0.00</h3>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-1.5 bg-white/10 px-4 py-2 rounded-full text-xs font-bold backdrop-blur-md">
+                                <span class="material-symbols-outlined text-sm">trending_up</span>
+                                <span id="balance-per-month-text">$0.00 this month</span>
+                            </div>
+                            <button class="px-6 py-2 bg-white text-primary font-bold rounded-full text-sm hover:bg-blue-50 transition-all shadow-lg active:scale-95" onclick="app.switchView('add-expense')">Record Expense</button>
+                        </div>
+                    </div>
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                </div>
+                <div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-[2rem] p-8 flex flex-col justify-center border border-slate-100 shadow-sm">
+                    <h4 class="font-headline font-bold text-slate-400 text-xs uppercase tracking-widest mb-6">Quick Stats</h4>
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-sm">call_made</span>
+                                </div>
+                                <span class="text-sm font-semibold">You are owed</span>
+                            </div>
+                            <span class="text-lg font-bold text-primary" id="stat-owed">$0.00</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-sm">call_received</span>
+                                </div>
+                                <span class="text-sm font-semibold">You owe</span>
+                            </div>
+                            <span class="text-lg font-bold text-tertiary" id="stat-owe">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-xl font-headline font-extrabold text-on-surface mb-6">Roommate Standings</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="roommate-grid">
+                    <!-- Dynamic Member Cards -->
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-headline font-extrabold text-on-surface">Recent Activity</h3>
+                    <button class="text-sm font-bold text-primary hover:underline" onclick="app.switchView('history')">View All</button>
+                </div>
+                <div class="bg-surface-container-lowest rounded-2xl overflow-hidden border border-slate-100 shadow-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                <th class="px-6 py-4">Transaction</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-activity-table" class="divide-y divide-slate-50">
+                            <!-- Dynamic Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History View -->
+    <section class="view-section p-8" id="view-history">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-end justify-between mb-10">
+                <div>
+                    <h2 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface mb-2">History</h2>
+                    <p class="text-on-surface-variant font-medium flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-sm">calendar_today</span>
+                        All-time transaction history
+                    </p>
+                </div>
+                <div class="flex gap-3">
+                    <button class="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-on-surface font-bold rounded-xl hover:bg-slate-50 transition-all shadow-sm">
+                        <span class="material-symbols-outlined text-sm">download</span>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-slate-100/50 p-2 rounded-2xl flex gap-2 mb-6 w-fit">
+                <button class="filter-btn active px-4 py-2 rounded-xl text-sm font-bold bg-white shadow-sm text-primary transition-all" data-filter="all">All</button>
+                <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-500 hover:text-primary transition-all" data-filter="pending">Pending</button>
+                <button class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-500 hover:text-primary transition-all" data-filter="settled">Settled</button>
+            </div>
+
+            <div class="bg-surface-container-lowest rounded-2xl overflow-hidden border border-slate-100 shadow-xl">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50">
+                            <th class="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Date</th>
+                            <th class="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Description</th>
+                            <th class="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Paid By</th>
+                            <th class="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Amount</th>
+                            <th class="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
+                            <th class="px-8 py-5"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="full-history-table" class="divide-y divide-slate-50">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Expense View -->
+    <section class="view-section p-8" id="view-add-expense">
+        <div class="max-w-4xl mx-auto">
+            <header class="mb-10 text-center">
+                <h2 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface mb-2">Record Expense</h2>
+                <p class="text-on-surface-variant font-medium">Split a shared cost with your roommates.</p>
+            </header>
+
+            <div class="bg-surface-container-lowest rounded-[2rem] shadow-2xl p-12 relative overflow-hidden border border-slate-50">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-primary-container"></div>
+                <form id="expense-form" class="space-y-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 mb-2 ml-1">Amount</label>
+                            <div class="relative group">
+                                <span class="absolute left-6 top-1/2 -translate-y-1/2 text-3xl font-black text-primary">$</span>
+                                <input class="w-full bg-slate-50 border-none rounded-2xl pl-12 pr-6 py-5 text-4xl font-black text-on-surface focus:ring-4 focus:ring-primary/5 focus:bg-white transition-all placeholder:text-slate-200" id="exp-amount" placeholder="0.00" required step="0.01" type="number"/>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-end">
+                            <label class="block text-sm font-bold text-slate-400 mb-2 ml-1">Description</label>
+                            <input class="w-full bg-slate-50 border-none rounded-2xl px-6 py-5 text-lg font-medium text-on-surface focus:ring-4 focus:ring-primary/5 focus:bg-white transition-all placeholder:text-slate-300" id="exp-description" placeholder="What's this for?" required type="text"/>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 mb-2 ml-1">Date</label>
+                            <input class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-on-surface font-semibold focus:ring-4 focus:ring-primary/5 focus:bg-white transition-all" id="exp-date" type="date"/>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 mb-2 ml-1">Paid By</label>
+                            <select class="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 text-on-surface font-semibold focus:ring-4 focus:ring-primary/5 focus:bg-white transition-all appearance-none" id="exp-payer">
+                                <!-- Options populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 border-t border-slate-100">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold font-headline">Split Among</h3>
+                                <p class="text-sm text-slate-400">Select who shared this expense.</p>
+                            </div>
+                            <button type="button" class="text-xs font-bold text-primary px-3 py-1 bg-blue-50 rounded-lg hover:bg-blue-100 transition-all" id="select-all-split">Select All</button>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="split-members-list">
+                            <!-- Dynamic Checkboxes -->
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-between pt-10 gap-6">
+                        <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm">
+                                <span class="material-symbols-outlined text-sm">balance</span>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Share Preview</p>
+                                <p class="font-bold text-on-surface" id="split-preview-text">$0.00 each</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <button type="button" class="flex-1 sm:flex-none px-8 py-4 rounded-xl font-bold text-slate-400 hover:text-slate-600 transition-all" onclick="app.switchView('dashboard')">Cancel</button>
+                            <button type="submit" class="flex-1 sm:flex-none px-12 py-4 rounded-xl bg-primary text-white font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all active:scale-95">Save Expense</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members View -->
+    <section class="view-section p-8" id="view-members">
+        <div class="max-w-6xl mx-auto">
+            <header class="mb-10">
+                <h2 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface mb-2">Members</h2>
+                <p class="text-on-surface-variant font-medium text-lg">Manage your household financial contributors.</p>
+            </header>
+
+            <div class="grid grid-cols-12 gap-10 items-start">
+                <div class="col-span-12 lg:col-span-8 space-y-6">
+                    <div class="bg-surface-container-lowest rounded-2xl overflow-hidden border border-slate-100 shadow-xl">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-100">
+                                    <th class="px-8 py-5 font-bold text-[11px] text-slate-400 uppercase tracking-widest">Member</th>
+                                    <th class="px-8 py-5 font-bold text-[11px] text-slate-400 uppercase tracking-widest">Contact</th>
+                                    <th class="px-8 py-5 font-bold text-[11px] text-slate-400 uppercase tracking-widest text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="members-list-table" class="divide-y divide-slate-50">
+                                <!-- Dynamic Member Rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <aside class="col-span-12 lg:col-span-4 sticky top-24">
+                    <div class="bg-surface-container-lowest rounded-2xl p-8 shadow-2xl border border-slate-50">
+                        <div class="mb-8">
+                            <h3 class="text-xl font-black text-on-surface mb-2">Add Member</h3>
+                            <p class="text-sm text-slate-400">Invite a new roommate to track shared expenses.</p>
+                        </div>
+                        <form id="add-member-form" class="space-y-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-slate-500 ml-1">Full Name</label>
+                                <input class="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-on-surface focus:ring-4 focus:ring-primary/5 focus:bg-white transition-all placeholder:text-slate-300" id="member-name" placeholder="e.g. John Doe" required type="text"/>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-slate-500 ml-1">Email Address</label>
+                                <input class="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-on-surface focus:ring-4 focus:ring-primary/5 focus:bg-white transition-all placeholder:text-slate-300" id="member-email" placeholder="john@example.com" type="email"/>
+                            </div>
+                            <button class="w-full bg-primary text-white py-4 rounded-xl font-black flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.01] transition-all active:scale-95" type="submit">
+                                <span class="material-symbols-outlined">person_add</span>
+                                Add to Household
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="mt-8 bg-blue-50/50 p-6 rounded-2xl border border-blue-100 flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm">
+                            <span class="material-symbols-outlined text-sm">info</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-primary mb-1">Equal Splitting</p>
+                            <p class="text-[10px] text-blue-700 leading-relaxed font-medium">Adding members automatically recalculates split shares for all future shared expenses and bills.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Sticky Ticker Tape -->
+<footer class="fixed bottom-0 left-[280px] right-0 bg-inverse-surface text-inverse-on-surface h-10 flex items-center px-8 z-30 shadow-2xl overflow-hidden">
+    <div class="flex items-center gap-12 whitespace-nowrap animate-marquee" id="ticker-container">
+        <!-- Dynamic Ticker Items -->
+    </div>
+</footer>
+
+<script src="store.js"></script>
+<script src="app.js"></script>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        display: flex;
+        animation: marquee 30s linear infinite;
+        width: max-content;
+    }
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+</style>
+
+</body>
+</html>
